@@ -30,14 +30,30 @@ export default function UserProfessionalDetails() {
             variant="standard"
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <TextField
             required
             id="expDate"
-            label="Current Orgnization"
+            label="Current Orgnization Details"
             fullWidth
             autoComplete="cc-exp"
             variant="standard"
+            multiline
+            minRows={2}
+            maxRows={4}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="expDate"
+            label="Skills & Certifications"
+            fullWidth
+            autoComplete="cc-exp"
+            variant="standard"
+            multiline
+            minRows={2}
+            maxRows={4}
           />
         </Grid>
       </Grid>
