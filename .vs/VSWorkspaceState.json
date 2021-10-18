@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\containers",
+    "\\src\\containers\\userProfessionalDetails"
   ],
-  "SelectedNode": "\\src\\store",
+  "SelectedNode": "\\.eslintrc.js",
   "PreviewInSolutionExplorer": false
 }

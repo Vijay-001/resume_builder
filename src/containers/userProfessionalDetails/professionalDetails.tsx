@@ -1,59 +1,56 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import InputField from "../../common/formValidation/formFields/inputFields";
 
-export default function UserProfessionalDetails() {
+export default function UserProfessionalDetails(props: any) {
+  const {
+    formField: {
+      qualification,
+      totalExperience,
+      relevantExperience,
+      skills,
+      currentOrgDetails,
+    },
+  } = props;
   return (
     <React.Fragment>
+      <p></p>
+      <p></p>
       <Typography variant="h6" gutterBottom>
-        Professinal Details
+        Professional Details
       </Typography>
+
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cardName"
-            label="Qualification"
+        <Grid item xs={12}>
+          <InputField
+            name={qualification.name}
+            label={qualification.label}
             fullWidth
-            autoComplete="cc-name"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cardNumber"
-            label="Expierence"
-            fullWidth
-            autoComplete="cc-number"
-            variant="standard"
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="expDate"
-            label="Current Orgnization Details"
+          <InputField
+            name={totalExperience.name}
+            label={totalExperience.label}
             fullWidth
-            autoComplete="cc-exp"
-            variant="standard"
-            multiline
-            minRows={2}
-            maxRows={4}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="expDate"
-            label="Skills & Certifications"
+          <InputField
+            name={relevantExperience.name}
+            label={relevantExperience.label}
             fullWidth
-            autoComplete="cc-exp"
-            variant="standard"
-            multiline
-            minRows={2}
-            maxRows={4}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <InputField name={skills.name} label={skills.label} fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <InputField
+            name={currentOrgDetails.name}
+            label={currentOrgDetails.label}
+            fullWidth
           />
         </Grid>
       </Grid>

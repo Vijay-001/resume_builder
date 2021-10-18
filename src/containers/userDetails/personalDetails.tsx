@@ -1,109 +1,53 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import InputField from "../../common/formValidation/formFields/inputFields";
 
-export default function UserPersonalDetails() {
+export default function UserPersonalDetails(props: any) {
+  const {
+    formField: {
+      firstName,
+      lastName,
+      address1,
+      address2,
+      city,
+      state,
+      zipcode,
+      country,
+    },
+  } = props;
   return (
     <React.Fragment>
+      <p></p>
+      <p></p>
       <Typography variant="h6" gutterBottom>
         Personal Details
       </Typography>
+
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-            variant="standard"
-          />
+        <Grid item xs={12}>
+          <InputField name={firstName.name} label={firstName.label} fullWidth />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="address1"
-            name="address1"
-            label="Address line 1"
-            fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
-          />
+          <InputField name={lastName.name} label={lastName.label} fullWidth />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            autoComplete="shipping address-level2"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-            variant="standard"
-          />
+          <InputField name={address1.name} label={address1.label} fullWidth />
         </Grid>
         <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
-            }
-            label="Use this address for payment details"
-          />
+          <InputField name={address2.name} label={address2.label} fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <InputField name={state.name} label={state.label} fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <InputField name={city.name} label={city.label} fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <InputField name={country.name} label={country.label} fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <InputField name={zipcode.name} label={zipcode.label} fullWidth />
         </Grid>
       </Grid>
     </React.Fragment>

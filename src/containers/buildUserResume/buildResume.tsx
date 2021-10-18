@@ -1,42 +1,70 @@
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  CircularProgress,
+  Paper,
+  Container,
+  CssBaseline,
+} from "@mui/material";
 import UserProfessionalDetails from "../userProfessionalDetails/professionalDetails";
 import UserPersonalDetails from "../userDetails/personalDetails";
+import resumeBuildModal from "../../common/formValidation/formModal/resumeBuildModal";
+import formInitialValues from "../../common/formValidation/formModal/formInitialValues";
+import { Form, Formik } from "formik";
+import validationSchema from "../../common/formValidation/formModal/validationSchema";
+import { useState } from "react";
+import ResumeBuildSuccess from "../resumeBuildSuccess/buildSuccess";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+const { formId, formField } = resumeBuildModal;
 const steps = ["Personal details", "Professional details", "Review & Download"];
 
-function getStepContent(step: number) {
+function renderStepContent(step: any) {
   switch (step) {
     case 0:
-      return <UserPersonalDetails />;
+      return <UserPersonalDetails formField={formField} />;
     case 1:
-      return <UserProfessionalDetails />;
+      return <UserProfessionalDetails formField={formField} />;
     default:
-      throw new Error("Unknown step");
+      return <div>Not Found</div>;
   }
 }
 
 const theme = createTheme();
 
 export default function BuildUserResume() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const currentValidationSchema = validationSchema[activeStep];
+  const isLastStep = activeStep === steps.length - 1;
 
-  const handleNext = () => {
+  function sleep(ms: any) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function submitForm(values: any, actions: any) {
+    await sleep(1000);
+    alert(JSON.stringify(values, null, 2));
+    actions.setSubmitting(false);
     setActiveStep(activeStep + 1);
-  };
+  }
 
-  const handleBack = () => {
+  function handleSubmit(values: any, actions: any) {
+    if (isLastStep) {
+      submitForm(values, actions);
+    } else {
+      setActiveStep(activeStep + 1);
+      actions.setTouched({});
+      actions.setSubmitting(false);
+    }
+  }
+
+  function handleBack() {
     setActiveStep(activeStep - 1);
-  };
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -46,10 +74,11 @@ export default function BuildUserResume() {
           variant="outlined"
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
         >
-          <Typography component="h1" variant="h4" align="center">
-            Build Resume
+          <Typography component="h1" variant="h5" align="center">
+            Resume Builder
           </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+          <p></p>
+          <Stepper activeStep={activeStep}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -58,33 +87,37 @@ export default function BuildUserResume() {
           </Stepper>
           <React.Fragment>
             {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
+              <ResumeBuildSuccess />
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep)}
-                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                      Back
-                    </Button>
+                <Formik
+                  initialValues={formInitialValues}
+                  validationSchema={currentValidationSchema}
+                  onSubmit={handleSubmit}
+                >
+                  {({ isSubmitting }) => (
+                    <Form id={formId}>
+                      {renderStepContent(activeStep)}
+
+                      <div>
+                        {activeStep !== 0 && (
+                          <Button onClick={handleBack}>Back</Button>
+                        )}
+                        <div>
+                          <Button
+                            disabled={isSubmitting}
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                          >
+                            {isLastStep ? "Place order" : "Next"}
+                          </Button>
+                          {isSubmitting && <CircularProgress size={24} />}
+                        </div>
+                      </div>
+                    </Form>
                   )}
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                  </Button>
-                </Box>
+                </Formik>
               </React.Fragment>
             )}
           </React.Fragment>
