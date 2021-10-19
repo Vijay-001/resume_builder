@@ -1,0 +1,34 @@
+{
+  "resumeDetails": [
+    {
+      "firstName": "kk",
+      "lastName": "k",
+      "address1": "k",
+      "city": "kk",
+      "zipcode": "90909",
+      "country": "ll",
+      "qualification": "kk",
+      "totalExperience": "k",
+      "relevantExperience": "k",
+      "skills": "kk",
+      "currentOrgDetails": "k",
+      "state": "k",
+      "id": 1
+    },
+    {
+      "firstName": "llLlLL",
+      "lastName": "L",
+      "address1": "L",
+      "city": "L",
+      "zipcode": "431001",
+      "country": "L",
+      "qualification": "kk",
+      "totalExperience": "k",
+      "relevantExperience": "k",
+      "skills": "kk",
+      "currentOrgDetails": "k",
+      "state": "L",
+      "id": 2
+    }
+  ]
+}
