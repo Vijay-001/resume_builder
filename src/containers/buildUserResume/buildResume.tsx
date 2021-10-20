@@ -17,8 +17,10 @@ import formInitialValues from "../../common/formValidation/formModal/formInitial
 import { Form, Formik } from "formik";
 import validationSchema from "../../common/formValidation/formModal/validationSchema";
 import { useState } from "react";
-import ResumeBuildSuccess from "../resumeBuildSuccess/buildSuccess";
+import UserCheckout from "../userSuccess/successPage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
+import saveResumeDetails from "../../common/userServices/saveResume";
 
 const { formId, formField } = resumeBuildModal;
 const steps = ["Personal details", "Professional details", "Review & Download"];
@@ -30,7 +32,7 @@ function renderStepContent(step: any) {
     case 1:
       return <UserProfessionalDetails formField={formField} />;
     default:
-      return <div>Not Found</div>;
+      return <div></div>;
   }
 }
 
@@ -45,9 +47,12 @@ export default function BuildUserResume() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+  const dispatch = useDispatch();
+
   async function submitForm(values: any, actions: any) {
     await sleep(1000);
     alert(JSON.stringify(values, null, 2));
+    dispatch(saveResumeDetails(values));
     actions.setSubmitting(false);
     setActiveStep(activeStep + 1);
   }
@@ -87,7 +92,7 @@ export default function BuildUserResume() {
           </Stepper>
           <React.Fragment>
             {activeStep === steps.length ? (
-              <ResumeBuildSuccess />
+              <UserCheckout />
             ) : (
               <React.Fragment>
                 <Formik
@@ -110,7 +115,7 @@ export default function BuildUserResume() {
                             variant="contained"
                             color="primary"
                           >
-                            {isLastStep ? "Place order" : "Next"}
+                            {isLastStep ? "Submit" : "Next"}
                           </Button>
                           {isSubmitting && <CircularProgress size={24} />}
                         </div>

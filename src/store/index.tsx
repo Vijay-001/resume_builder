@@ -1,9 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import Thunk from "redux-thunk";
-import { reducer } from "./reducer/userReducer";
+import rootReducer from "./reducer/userReducer";
 
 const middleware: any = [];
-const rootReducer = reducer;
 
 if (process.env.NODE_ENV === "development") {
   middleware.push(Thunk);
