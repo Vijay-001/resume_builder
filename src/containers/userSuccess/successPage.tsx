@@ -23,7 +23,9 @@ function UserCheckout(userState: any) {
       <Typography variant="h5" gutterBottom>
         Thank you for build resume.
       </Typography>
-      <Button onClick={downloadObjectAsJson}>Download</Button>
+      <Button onClick={downloadObjectAsJson} data-testid="downloadButton">
+        Download
+      </Button>
     </React.Fragment>
   );
 }

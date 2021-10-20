@@ -9,17 +9,13 @@ const saveResumeDetails =
       url: "http://localhost:5000/resumeDetails",
       method: "post",
       data: values,
-    })
-      .then((res: any) => {
-        if (!res.data) {
-          dispatch(ActionCreator.userDetailsFailed());
-        } else {
-          dispatch(ActionCreator.userDetailsSuccess(res.data));
-        }
-      })
-      .catch(() => {
+    }).then((res: any) => {
+      if (!res.data) {
         dispatch(ActionCreator.userDetailsFailed());
-      });
+      } else {
+        dispatch(ActionCreator.userDetailsSuccess(res.data));
+      }
+    });
   };
 
 export default saveResumeDetails;
