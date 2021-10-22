@@ -114,6 +114,7 @@ export default function BuildUserResume() {
                             type="submit"
                             variant="contained"
                             color="primary"
+                            data-testid="nextbutton"
                           >
                             {isLastStep ? "Submit" : "Next"}
                           </Button>

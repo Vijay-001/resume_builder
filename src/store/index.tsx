@@ -3,10 +3,7 @@ import Thunk from "redux-thunk";
 import rootReducer from "./reducer/userReducer";
 
 const middleware: any = [];
-
-if (process.env.NODE_ENV === "development") {
-  middleware.push(Thunk);
-}
+middleware.push(Thunk);
 
 export const store = configureStore({
   reducer: rootReducer,
